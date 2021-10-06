@@ -2,6 +2,8 @@ const express = require('express'),
       morgan = require('morgan');
 const app = express();
 
+app.use(morgan('common'));
+
 
 let topMovies = [
   {
@@ -36,15 +38,6 @@ let topMovies = [
   }
 ];
 
-app.use(morgan('common'));
-
-
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Houston, we have a problem!');
-});
-
-
 
 // GET requests
 app.get('/', (req, res) => {
@@ -57,6 +50,11 @@ app.get('/documentation', (req, res) => {
 
 app.get('/movies', (req, res) => {
   res.json(topMovies);
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Houston, we have a problem!');
 });
 
 
