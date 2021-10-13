@@ -57,6 +57,7 @@ app.use((err, req, res, next) => {
   res.status(500).send('Houston, we have a problem!');
 });
 
+app.use(express.static('public'));
 
 // listen for requests
 app.listen(8080, () => {
