@@ -69,37 +69,37 @@ let directors = [
     name: 'Chris Columbus',
     bio: 'https://en.wikipedia.org/wiki/Chris_Columbus_(filmmaker)',
     birth: 1958,
-    death:
+    death: '',
   },
   {
     name: 'Peter Jackson',
     bio: 'https://en.wikipedia.org/wiki/Peter_Jackson',
     birth: 1961,
-    death:
+    death: '',
   },
   {
     name: 'Catherine Hardwicke',
     bio: 'https://en.wikipedia.org/wiki/Catherine_Hardwicke',
     birth: 1955,
-    death:
+    death: '',
   },
   {
     name: 'Francis Ford Coppola',
     bio: 'https://en.wikipedia.org/wiki/Francis_Ford_Coppola',
     birth: 1939,
-    death:
+    death: '',
   },
   {
     name: 'Robert Zemeckis',
     bio: 'https://en.wikipedia.org/wiki/Robert_Zemeckis',
     birth: 1951,
-    death:
+    death: '',
   },
   {
     name: 'James Cameron',
     bio: 'https://en.wikipedia.org/wiki/James_Cameron',
     birth: 1954,
-    death:
+    death: '',
   },
   {
     name: 'Juan Pablo Rebella',
@@ -111,13 +111,13 @@ let directors = [
     name: 'Andres Benvenutto',
     bio: 'https://www.imdb.com/name/nm10978880/?ref_=tt_ov_dr',
     birth: 1978,
-    death:
+    death: '',
   },
   {
     name: 'Quentin Tarantino',
     bio: 'https://en.wikipedia.org/wiki/Quentin_Tarantino',
     birth: 1963,
-    death:
+    death: '',
   },
   {
     name: 'Alan Parker',
