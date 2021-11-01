@@ -129,64 +129,77 @@ let directors = [
 
 let movies = [
   {
-    id: 1,
+    movieId: 1,
     title: 'Harry Potter and the Sorcerer\'s Stone',
     genre: ['Fantasy', 'Adventure', 'Narrative'],
     director: 'Chris Columbus',
   },
   {
-    id: 2,
+    movieId: 2,
     title: 'Lord of the Rings',
     genre: ['Novel', 'Fiction', 'Adventure'],
     director: 'Peter Jackson',
   },
   {
-    id: 3,
+    movieId: 3,
     title: 'Twilight',
     genre: ['Romance', 'Terror', 'Drama'],
     director: 'Catherine Hardwicke',
   },
   {
-    id: 4,
+    movieId: 4,
     title: 'The Godfather',
     genre: ['Mafia', 'Drama', 'Crime'],
     director: { name: 'Francis Ford Coppola' },
   },
   {
-    id: 5,
+    movieId: 5,
     title: 'Back to the future',
     genre: ['Comedy', 'Fantasy', 'Adventure'],
     director: { name: 'Robert Zemeckis' },
   },
   {
-    id: 6,
+    movieId: 6,
     title: 'Titanic',
     genre: ['Romance', 'Disaster', 'Drama'],
     director: { name: 'James Cameron' },
   },
   {
-    id: 7,
+    movieId: 7,
     title: 'Manyas',
     genre: ['Sport', 'Documentary', 'Narrative'],
     director: { name: 'Andres Benvenutto' },
   },
   {
-    id: 8,
+    movieId: 8,
     title: '25 Watts',
     genre: ['Comedy', 'Drama', 'Narrative'],
     director: { name: 'Pablo Stoll' },
   },
   {
-    id: 9,
+    movieId: 9,
     title: 'Pulp Fiction',
     genre: ['Mafia', 'Drama', 'Thriller'],
     director: { name: 'Quentin Tarantino' },
   },
   {
-    id: 10,
+    movieId: 10,
     title: 'The Wall',
     genre: ['Narrative', 'Drama', 'Fantasy'],
     director: { name: 'Alan Parker' },
+  }
+];
+
+let users = [
+  {
+    id: 1,
+    mail: 'usu1@usu1.com',
+    password: 'password1',
+  },
+  {
+    id: 2,
+    mail: 'usu2@usu2.com',
+    password: 'password2',
   }
 ];
 
