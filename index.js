@@ -1,207 +1,20 @@
-const express = require('express'),
-morgan = require('morgan');
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+const express = require('express');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+
+
 const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+const Movies = Models.Movie;
+const Users = Models.User;
+
+mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(morgan('common'));
-
-
-let genres = [
-  {
-    name: 'Fantasy',
-    description: 'Fantasy is a genre of speculative fiction set in a fictional universe, often inspired by real-world myth and folklore. Its roots are in oral traditions, which then became fantasy literature and drama',
-  },
-  {
-    name: 'Adventure',
-    description: 'Adventure is a type of romance that usually presents danger, or gives the reader a sense of excitemen',
-  },
-  {
-    name: 'Narrative',
-    description: 'Narrative that tells a story, from the point of view of the narrator. There is generally a single event, or a sequence of connected events, with characters, setting, and plot.',
-  },
-  {
-    name: 'Novel',
-    description: 'Novel fiction, is a term used in the book-trade for fictional works written with the intent of fitting into a specific literary genre, in order to appeal to readers and fans already familiar with that genre',
-  },
-  {
-    name: 'Terror',
-    description: 'Terror is a genre of literature, film, and television that is meant to scare, startle, shock, and even repulse audiences',
-  },
-  {
-    name: 'Drama',
-    description: 'The drama genre features stories with high stakes and a lot of conflicts. They are plot-driven and demand that every character and scene move the story forward',
-  },
-  {
-    name: 'Romance',
-    description: 'Romance films are love stories, or affairs of the heart that center on passion, emotion, and the romantic, affectionate involvement of the main characters (usually a leading man and lady), and the journey that their love takes through courtship or marriage.',
-  },
-  {
-    name: 'Mafia',
-    description: 'Mafia films version of gangster films—are a subgenre of crime films dealing with organized crime, often specifically with Mafia organizations.',
-  },
-  {
-    name: 'Crime',
-    description: 'Crime fiction is the genre that fictionalises crimes, their detection, criminals and their motives.',
-  },
-  {
-    name: 'Comedy',
-    description: 'Comedy may be divided into multiple genres based on the source of humor, the method of delivery, and the context in which it is delivered.',
-  },
-  {
-    name: 'Disaster',
-    description: 'A disaster film or disaster movie is a film genre that has an impending or ongoing disaster as its subject and primary plot device.',
-  },
-  {
-    name: 'Sport',
-    description: 'A sports film is a film genre that uses sport as the theme of the film. It is a production in which a sport, sporting event, athlete, or follower of sport are prominently featured, and which depend on sport to a significant degree for their plot motivation or resolution.',
-  },
-  {
-    name: 'Documentary',
-    description: 'Documentary is a genre of movie making that uses video & film scenes, photographs and/or sound of real people and real events which when edited together creates a particular story, viewpoint, message or experience.',
-  },
-  {
-    name: 'Thriller',
-    description: 'Thriller is a genre of fiction, having numerous, often overlapping subgenres. Thrillers are characterized and defined by the moods they elicit, giving viewers heightened feelings of suspense, excitement, surprise, anticipation and anxiety.',
-  }
-];
-
-let directors = [
-  {
-    name: 'Chris Columbus',
-    bio: 'https://en.wikipedia.org/wiki/Chris_Columbus_(filmmaker)',
-    birth: 1958,
-    death: '',
-  },
-  {
-    name: 'Peter Jackson',
-    bio: 'https://en.wikipedia.org/wiki/Peter_Jackson',
-    birth: 1961,
-    death: '',
-  },
-  {
-    name: 'Catherine Hardwicke',
-    bio: 'https://en.wikipedia.org/wiki/Catherine_Hardwicke',
-    birth: 1955,
-    death: '',
-  },
-  {
-    name: 'Francis Ford Coppola',
-    bio: 'https://en.wikipedia.org/wiki/Francis_Ford_Coppola',
-    birth: 1939,
-    death: '',
-  },
-  {
-    name: 'Robert Zemeckis',
-    bio: 'https://en.wikipedia.org/wiki/Robert_Zemeckis',
-    birth: 1951,
-    death: '',
-  },
-  {
-    name: 'James Cameron',
-    bio: 'https://en.wikipedia.org/wiki/James_Cameron',
-    birth: 1954,
-    death: '',
-  },
-  {
-    name: 'Juan Pablo Rebella',
-    bio: 'https://en.wikipedia.org/wiki/Juan_Pablo_Rebella',
-    birth: 1974,
-    death: 2006,
-  },
-  {
-    name: 'Andres Benvenutto',
-    bio: 'https://www.imdb.com/name/nm10978880/?ref_=tt_ov_dr',
-    birth: 1978,
-    death: '',
-  },
-  {
-    name: 'Quentin Tarantino',
-    bio: 'https://en.wikipedia.org/wiki/Quentin_Tarantino',
-    birth: 1963,
-    death: '',
-  },
-  {
-    name: 'Alan Parker',
-    bio: 'https://en.wikipedia.org/wiki/Alan_Parker',
-    birth: 1944,
-    death: 2020,
-  }
-];
-
-let movies = [
-  {
-    movieId: 1,
-    title: 'Harry Potter and the Sorcerer\'s Stone',
-    genre: ['Fantasy', 'Adventure', 'Narrative'],
-    director: 'Chris Columbus',
-  },
-  {
-    movieId: 2,
-    title: 'Lord of the Rings',
-    genre: ['Novel', 'Fiction', 'Adventure'],
-    director: 'Peter Jackson',
-  },
-  {
-    movieId: 3,
-    title: 'Twilight',
-    genre: ['Romance', 'Terror', 'Drama'],
-    director: 'Catherine Hardwicke',
-  },
-  {
-    movieId: 4,
-    title: 'The Godfather',
-    genre: ['Mafia', 'Drama', 'Crime'],
-    director: { name: 'Francis Ford Coppola' },
-  },
-  {
-    movieId: 5,
-    title: 'Back to the future',
-    genre: ['Comedy', 'Fantasy', 'Adventure'],
-    director: { name: 'Robert Zemeckis' },
-  },
-  {
-    movieId: 6,
-    title: 'Titanic',
-    genre: ['Romance', 'Disaster', 'Drama'],
-    director: { name: 'James Cameron' },
-  },
-  {
-    movieId: 7,
-    title: 'Manyas',
-    genre: ['Sport', 'Documentary', 'Narrative'],
-    director: { name: 'Andres Benvenutto' },
-  },
-  {
-    movieId: 8,
-    title: '25 Watts',
-    genre: ['Comedy', 'Drama', 'Narrative'],
-    director: { name: 'Pablo Stoll' },
-  },
-  {
-    movieId: 9,
-    title: 'Pulp Fiction',
-    genre: ['Mafia', 'Drama', 'Thriller'],
-    director: { name: 'Quentin Tarantino' },
-  },
-  {
-    movieId: 10,
-    title: 'The Wall',
-    genre: ['Narrative', 'Drama', 'Fantasy'],
-    director: { name: 'Alan Parker' },
-  }
-];
-
-let users = [
-  {
-    id: 1,
-    mail: 'usu1@usu1.com',
-    password: 'password1',
-  },
-  {
-    id: 2,
-    mail: 'usu2@usu2.com',
-    password: 'password2',
-  }
-];
 
 
 // GET requests
@@ -214,39 +27,118 @@ app.get('/documentation', (req, res) => {
 });
 
 app.get('/movies', (req, res) => {
-  res.json(movies);
+  Movies.find().then(movies => res.json(movies));
 });
 
 app.get('/movies/:title', (req, res) => {
-  res.send('Successful GET movies by title');
+  Movies.findOne( { Title: req.params['title']}).then(movie => res.json(movie));
 });
 
 app.get('/genres/:name', (req, res) => {
-  res.send('Successful GET genre');
+  Movies.findOne( { 'Genre.Name': req.params['name']}).then(movie => res.json(movie['Genre']));
 });
 
 app.get('/directors/:name', (req, res) => {
-  res.send('Successful GET director');
+  Movies.findOne( { 'Director.Name': req.params['name']}).then(movie => res.json(movie['Director']));
 });
 
 app.post('/users', (req, res) => {
-  res.send('Successful POST user');
+  Users.findOne({ User: req.body.User })
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.User + 'already exists');
+      } else {
+        Users
+          .create({
+            User: req.body.User,
+            Password: req.body.Password,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
+          })
+          .then((user) =>{res.status(201).json(user) })
+        .catch((error) => {
+          console.error(error);
+          res.status(500).send('Error: ' + error);
+        })
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
 });
 
 app.patch('/users/:id/favorites/:movieId', (req, res) => {
-  res.send('Successful PATCH user favorite');
+  let id = req.params.id;
+  Users.findByIdAndUpdate( id , { $push:
+      {
+      FavoriteMovies: req.params.movieId
+      }
+    },
+    { new: true },
+    (err, updatedUser) => {
+      if(err) {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      } else {
+        res.json(updatedUser);
+      }
+    });
 });
 
 app.put('/users/:id', (req, res) => {
-  res.send('Successful PUT user');
+  let id = req.params.id;
+  Users.findByIdAndUpdate( id , { $set:
+      {
+        User: req.body.User,
+        Password: req.body.Password,
+        Email: req.body.Email,
+        Birthday: req.body.Birthday
+      }
+    },
+    { new: true },
+    (err, updatedUser) => {
+      if(err) {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      } else {
+        res.json(updatedUser);
+      }
+    });
 });
 
 app.delete('/users/:id/favorites/:movieId', (req, res) => {
-  res.send('Successful DELETE user favorite movie');
+  let id = req.params.id;
+  Users.findByIdAndUpdate( id , { $pull:
+      {
+      FavoriteMovies: req.params.movieId
+      }
+    },
+    { new: true },
+    (err, updatedUser) => {
+      if(err) {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      } else {
+        res.json(updatedUser);
+      }
+    });
 });
 
 app.delete('/users/:id', (req, res) => {
-  res.send('Successful DELETE user');
+  let id = req.params.id;
+  Users.findByIdAndRemove( id )
+    .then((user) => {
+      if (!user) {
+        res.status(400).send(req.params.id + ' was not found');
+      } else {
+        res.status(200).send(req.params.id + ' was deleted.');
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 
