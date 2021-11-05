@@ -1,0 +1,5 @@
+{"_id":{"$oid":"6185848878b0b40a9c9904e6"},"Username":"user1","Password":"password1","Email":"user1@user1.com","Birthday":{"$date":"1970-12-31T23:00:00Z"},"FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"6185849978b0b40a9c9904e9"},"Username":"user2","Password":"password2","Email":"user2@user2.com","Birthday":{"$date":"1972-02-01T23:00:00Z"},"FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"618584a878b0b40a9c9904ec"},"Username":"user3","Password":"password3","Email":"user3@user3.com","Birthday":{"$date":"1973-03-02T23:00:00Z"},"FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"618584ba78b0b40a9c9904ef"},"Username":"user4","Password":"password4","Email":"user4@user4.com","Birthday":{"$date":"1974-04-03T23:00:00Z"},"FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"618584cb78b0b40a9c9904f2"},"Username":"user5","Password":"password5","Email":"user5@user5.com","Birthday":{"$date":"1975-05-04T23:00:00Z"},"FavoriteMovies":[],"__v":0}
