@@ -6,15 +6,18 @@
 </head>
 <body>
   <h1>myFlix Project</h1>
+  <br>
+  <h3>Documentation Page</h3>
 
   <p>The web application will provide users with access to information about different movies, directors, and genres.
     Users will be able to sign up, update their personal information, and create a list of their favorite movies.</p>
 
 
-    <table>
+    <table border="1">
       <thead>
         <tr>
           <th>Request</th>
+          <th>Business Logic</th>
           <th>Url</th>
           <th>Request body format</th>
           <th>Response format</th>
@@ -23,62 +26,163 @@
       <tbody>
         <tr>
           <td>GET</td>
+          <td>Get a list of all movies</td>
           <td>/movies</td>
           <td></td>
-          <td>Return list of JSON movie objects.</td>
+          <td>Return list of movies - JSON objects.</td>
         </tr>
+
         <tr>
           <td>GET</td>
+          <td>Get data about a movie by title</td>
           <td>/movies/:title</td>
-          <td></td>
+          <td>Specify Title in URL</td>
           <td>
-            Return JSON movie object.
+            Return data about a single movie - JSON objects,<br>
+            Example:<br>
+            <p>
+              {<br>
+                <span class="indent">"Genre": </span><br>
+                <span class="double-indent">"Name": "Genre's name",</span><br>
+                <span class="double-indent">"Description": "Description of the genre.",</span><br>
+                <span class="indent">"Director: "</span><br>
+                <span class="double-indent">"Name": "Director's Name",</span><br>
+                <span class="double-indent">"Bio": "Director's biography",</span><br>
+                <span class="double-indent">"Birthyear": "YYYY",</span><br>
+                <span class="double-indent">"Deathyear": "YYYY",</span><br>
+                <span class="indent">"_id": objectId,</span><br>
+                <span class="indent">"Title": "Movie Name",</span><br>
+                <span class="indent">"Description": "Movie description",</span><br>
+                <span class="indent">"imageUrl": Soon</span><br>
+                <span class="indent">"Featured": True</span><br>
+              }
+            </p>
           </td>
         </tr>
+
         <tr>
           <td>GET</td>
+          <td>Get data about a Genre</td>
           <td>/genres/:name</td>
-          <td></td>
-          <td>Return JSON genre object.</td>
+          <td>Specify Genre name in URL</td>
+          <td>Return data about a single genre - JSON objects,<br>
+            Example:<br>
+            <p>
+              {<br>
+                <span class="double-indent">"Name": "Genre's name",</span><br>
+                <span class="double-indent">"Description": "Description of the genre.",</span><br>
+              }
+            </p>
+          </td>
         </tr>
+
         <tr>
           <td>GET</td>
+          <td>Get data about a director by name</td>
           <td>/directors/:name</td>
-          <td></td>
-          <td>Return JSON director object.</td>
+          <td>Specify Director name in URL</td>
+          <td>Return data about a single movie director - JSON object<br>
+            Example:<br>
+            <p>
+              {<br>
+                <span class="double-indent">"Name": "Director's Name",</span><br>
+                <span class="double-indent">"Bio": "Director's biography",</span><br>
+                <span class="double-indent">"Birthyear": "YYYY",</span><br>
+                <span class="double-indent">"Deathyear": "YYYY"</span><br>
+              }
+            </p>
+          </td>
         </tr>
+
         <tr>
           <td>POST</td>
+          <td>Add a new user</td>
           <td>/users</td>
-          <td>{name: '', email: ''}</td>
-          <td>Return JSON user object with ID.</td>
+          <td>Data structure about the new user to add
+            <p>
+              {<br>
+                <span class="indent">"Username": "Username",</span><br>
+                <span class="indent">"Password": "Password",</span><br>
+                <span class="indent">"Email": "user@user.com",</span><br>
+                <span class="indent">"Birthday": "yyyy-mm-dd",</span><br>
+              }
+            </p>
+          </td>
+          <td>Return data about the new user added - JSON object<br>
+            <p>
+              {<br>
+                <span class="indent">"Username": "Username",</span><br>
+                <span class="indent">"Password": "Password",</span><br>
+                <span class="indent">"Email": "user@user.com",</span><br>
+                <span class="indent">"Birthday": "yyyy-mm-dd",</span><br>
+                <span class="indent">"_id": objectId,</span><br>
+              }
+            </p>
+          </td>
         </tr>
+
         <tr>
           <td>PATCH</td>
+          <td>Allow users to add a movie to favorite list</td>
           <td>/users/:id/favorites/:title</td>
           <td></td>
-          <td>Return TEXT "movie added".</td>
-        </tr>
-        <tr>
-          <td>PUT</td>
-          <td>/users/:id</td>
-          <td>{id: 0, name: '', email: ''}</td>
-          <td>Return JSON user object.</td>
-        </tr>
-        <tr>
-          <td>DELETE</td>
-          <td>/users/:id/favorites/:title</td>
-          <td></td>
-          <td>Return TEXT "movie removed".</td>
-        </tr>
-        <tr>
-          <td>DELETE</td>
-          <td>/users/:id</td>
-          <td></td>
-          <td>Return TEXT "user 'email' has been removed".</td>
-        </tr>
-      </tbody>
-    </table>
+          <td>Return data of a user and its favorites movies that is sucessfully updated - JSON object<br>
+            Example:<br>
+            <p>
+              {<br>
+                <span class="indent">"_id": objectId,</span><br>
+                <span class="indent">"Username": "Username",</span><br>
+                <span class="indent">"Password": "Password",</span><br>
+                <span class="indent">"Email": "user@user.com",</span><br>
+                <span class="indent">"Birthday": "yyyy-mm-dd",</span><br>
+                <span class="indent">"FavoritesMovies": [movieId]</span><br>
+              }
+            </p></td>
+          </tr>
 
-  </body>
-  </html>
+          <tr>
+            <td>PUT</td>
+            <td>Update a certain user by username</td>
+            <td>/users/:id</td>
+            <td>Data example about user info to update,<br>
+              <p>
+                {<br>
+                  <span class="indent">"Email": "user-updated@mail.com",</span>
+                }
+              </p></td>
+              <td>Return data of a user info that is sucessfully updated - JSON object<br>
+                Example:<br>
+                <p>
+                  {<br>
+                    <span class="indent">"_id": objectId,</span><br>
+                    <span class="indent">"Username": "Username",</span><br>
+                    <span class="indent">"Password": "Password",</span><br>
+                    <span class="indent">"Email": "user-updated@mail.com",</span><br>
+                    <span class="indent">"Birthday": "yyyy-mm-dd",</span><br>
+                    <span class="indent">"FavoritesMovies": [movieId]</span><br>
+                  }
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td>DELETE</td>
+              <td>Allow users to remove a movie from their favorite list</td>
+              <td>/users/:id/favorites/:title</td>
+              <td></td>
+              <td>Return TEXT "movie removed".</td>
+            </tr>
+
+            <tr>
+              <td>DELETE</td>
+              <td>Allow users to de-register</td>
+              <td>/users/:id</td>
+              <td></td>
+              <td>Return TEXT "user 'email' has been de-registered".</td>
+            </tr>
+
+          </tbody>
+        </table>
+
+      </body>
+      </html>
