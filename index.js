@@ -1,7 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-
+const { check, validationResult } = require('express-validator');
 const app = express();
 
 const mongoose = require('mongoose');
@@ -10,11 +10,16 @@ const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
 
+
+
 mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+const cors = require('cors');
+app.use(cors());
 
 let auth = require('./auth')(app);
 const passport = require('passport');
@@ -52,7 +57,19 @@ app.get('/directors/:name', (req, res) => {
   Movies.findOne( { 'Director.Name': req.params['name']}).then(movie => res.json(movie['Director']));
 });
 
-app.post('/users', (req, res) => {
+app.post('/users',
+[
+  check('Username', 'Username is required').isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+], (req, res) => {
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+  let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({ User: req.body.User })
   .then((user) => {
     if (user) {
@@ -61,7 +78,7 @@ app.post('/users', (req, res) => {
       Users
       .create({
         User: req.body.User,
-        Password: req.body.Password,
+        Password: hashedPassword,
         Email: req.body.Email,
         Birthday: req.body.Birthday
       })
@@ -160,6 +177,8 @@ app.use((err, req, res, next) => {
 app.use(express.static('public'));
 
 // listen for requests
-app.listen(8080, () => {
-  console.log('Your app is listening on port 8080.');
+
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0',() => {
+ console.log('Listening on Port ' + port);
 });
