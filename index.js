@@ -53,14 +53,14 @@ app.get('/directors/:name', (req, res) => {
 });
 
 app.post('/users', (req, res) => {
-  Users.findOne({ User: req.body.User })
+  Users.findOne({ Username: req.body.Username })
   .then((user) => {
     if (user) {
-      return res.status(400).send(req.body.User + 'already exists');
+      return res.status(400).send(req.body.Username + 'already exists');
     } else {
       Users
       .create({
-        User: req.body.User,
+        Username: req.body.Username,
         Password: req.body.Password,
         Email: req.body.Email,
         Birthday: req.body.Birthday
@@ -100,7 +100,7 @@ app.put('/users/:id', (req, res) => {
   let id = req.params.id;
   Users.findByIdAndUpdate( id , { $set:
     {
-      User: req.body.User,
+      Username: req.body.Username,
       Password: req.body.Password,
       Email: req.body.Email,
       Birthday: req.body.Birthday
