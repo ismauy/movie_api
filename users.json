@@ -1,5 +1,5 @@
-{"_id":{"$oid":"6185848878b0b40a9c9904e6"},"Username":"user1","Password":"password1","Email":"user1@user1.com","Birthday":{"$date":"1970-12-31T23:00:00Z"},"FavoriteMovies":[],"__v":0}
-{"_id":{"$oid":"6185849978b0b40a9c9904e9"},"Username":"user2","Password":"password2","Email":"user2@user2.com","Birthday":{"$date":"1972-02-01T23:00:00Z"},"FavoriteMovies":[],"__v":0}
-{"_id":{"$oid":"618584a878b0b40a9c9904ec"},"Username":"user3","Password":"password3","Email":"user3@user3.com","Birthday":{"$date":"1973-03-02T23:00:00Z"},"FavoriteMovies":[],"__v":0}
-{"_id":{"$oid":"618584ba78b0b40a9c9904ef"},"Username":"user4","Password":"password4","Email":"user4@user4.com","Birthday":{"$date":"1974-04-03T23:00:00Z"},"FavoriteMovies":[],"__v":0}
-{"_id":{"$oid":"618584cb78b0b40a9c9904f2"},"Username":"user5","Password":"password5","Email":"user5@user5.com","Birthday":{"$date":"1975-05-04T23:00:00Z"},"FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"6187e0fd8b78721906ed7ec0"},"Username":"useruser1","Password":"$2b$10$nwLUw5lkrzD0VOdYHPrYVuldrate9CWyc8zDrfTHQVKvky9BfcMtG","Email":"user6@user6.com","Birthday":{"$date":"1976-06-05T23:00:00Z"},"FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"6187e1358b78721906ed7ec3"},"Username":"useruser2","Password":"$2b$10$eU/6a3/3FEmt1kKU2FM9T.PHj9nR8I3B2KShMkt/Y85TMOi3jjmSW","Email":"user2@user2.com","Birthday":{"$date":"1972-02-01T23:00:00Z"},"FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"6187e1458b78721906ed7ec6"},"Username":"useruser3","Password":"$2b$10$wfgTa7b3RYBuO3sxkD7KUeUOt77p9IaYL78amJ3cPOhjd56tDdzsO","Email":"user3@user3.com","Birthday":{"$date":"1973-03-02T23:00:00Z"},"FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"6187e1508b78721906ed7ec9"},"Username":"useruser4","Password":"$2b$10$bEqw2M0htt5opct9mKBQKuDeNu1gLoHw./KD8S0KrqvGVOIVISeWS","Email":"user3@user3.com","Birthday":{"$date":"1974-04-03T23:00:00Z"},"FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"6187e1638b78721906ed7ecc"},"Username":"useruser5","Password":"$2b$10$mcmoGbBMSzE2D0et0lfO5.fu78p70l5o77M74o27IvPRuR5URbm1e","Email":"user5@user5.com","Birthday":{"$date":"1975-05-04T23:00:00Z"},"FavoriteMovies":[],"__v":0}
