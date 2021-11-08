@@ -8,7 +8,7 @@ require('./passport');
 
 let generateJWTToken = (user) => {
   return jwt.sign(user, jwtSecret, {
-    subject: user.User,
+    subject: user.Username,
     expiresIn: '7d',
     algorithm: 'HS256'
   });
@@ -25,7 +25,7 @@ module.exports = (router) => {
           user: user
         });
       }
-      req.login(user, { session: false }, (error) => {
+      req.logIn(user, { session: false }, (error) => {
         if (error) {
           res.send(error);
         }

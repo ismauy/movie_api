@@ -11,9 +11,8 @@ const Movies = Models.Movie;
 const Users = Models.User;
 
 
-
-// mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
+//mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 app.use(bodyParser.json());
@@ -46,15 +45,15 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) 
   Movies.find().then(movies => res.json(movies));
 });
 
-app.get('/movies/:title', (req, res) => {
+app.get('/movies/:title', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.findOne( { Title: req.params['title']}).then(movie => res.json(movie));
 });
 
-app.get('/genres/:name', (req, res) => {
+app.get('/genres/:name', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.findOne( { 'Genre.Name': req.params['name']}).then(movie => res.json(movie['Genre']));
 });
 
-app.get('/directors/:name', (req, res) => {
+app.get('/directors/:name', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.findOne( { 'Director.Name': req.params['name']}).then(movie => res.json(movie['Director']));
 });
 
@@ -64,21 +63,21 @@ app.post('/users',
   check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
   check('Password', 'Password is required').not().isEmpty(),
   check('Email', 'Email does not appear to be valid').isEmail()
-], (req, res) => {
+], passport.authenticate('jwt', { session: false }), (req, res) => {
   let errors = validationResult(req);
 
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() });
   }
   let hashedPassword = Users.hashPassword(req.body.Password);
-  Users.findOne({ User: req.body.User })
+  Users.findOne({ Username: req.body.Username })
   .then((user) => {
     if (user) {
       return res.status(400).send(req.body.User + 'already exists');
     } else {
       Users
       .create({
-        User: req.body.User,
+        Username: req.body.Username,
         Password: hashedPassword,
         Email: req.body.Email,
         Birthday: req.body.Birthday
@@ -96,7 +95,7 @@ app.post('/users',
   });
 });
 
-app.patch('/users/:id/favorites/:movieId', (req, res) => {
+app.patch('/users/:id/favorites/:movieId', passport.authenticate('jwt', { session: false }), (req, res) => {
   let id = req.params.id;
   Users.findByIdAndUpdate( id , { $push:
     {
@@ -114,11 +113,11 @@ app.patch('/users/:id/favorites/:movieId', (req, res) => {
   });
 });
 
-app.put('/users/:id', (req, res) => {
+app.put('/users/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
   let id = req.params.id;
   Users.findByIdAndUpdate( id , { $set:
     {
-      User: req.body.User,
+      Username: req.body.Username,
       Password: req.body.Password,
       Email: req.body.Email,
       Birthday: req.body.Birthday
@@ -135,7 +134,7 @@ app.put('/users/:id', (req, res) => {
   });
 });
 
-app.delete('/users/:id/favorites/:movieId', (req, res) => {
+app.delete('/users/:id/favorites/:movieId', passport.authenticate('jwt', { session: false }), (req, res) => {
   let id = req.params.id;
   Users.findByIdAndUpdate( id , { $pull:
     {
@@ -153,7 +152,7 @@ app.delete('/users/:id/favorites/:movieId', (req, res) => {
   });
 });
 
-app.delete('/users/:id', (req, res) => {
+app.delete('/users/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
   let id = req.params.id;
   Users.findByIdAndRemove( id )
   .then((user) => {
