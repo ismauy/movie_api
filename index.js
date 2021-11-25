@@ -41,7 +41,7 @@ app.get('/documentation', (req, res) => {
   res.sendFile('public/documentation.html', { root: __dirname });
 });
 
-app.get('/movies', function (req, res) {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
     .then(function (movies) {
       res.status(201).json(movies);
@@ -60,6 +60,10 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) 
 
 app.get('/movies/:title', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.findOne( { Title: req.params['title']}).then(movie => res.json(movie));
+});
+
+app.get('/users/:username', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Users.findOne( { Username: req.params['username']}).then(user => res.json(user));
 });
 
 app.get('/genres/:name', passport.authenticate('jwt', { session: false }), (req, res) => {
