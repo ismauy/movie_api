@@ -133,10 +133,11 @@ app.patch('/users/:id/favorites/:movieId', passport.authenticate('jwt', { sessio
 
 app.put('/users/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
   let id = req.params.id;
+  let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findByIdAndUpdate( id , { $set:
     {
       Username: req.body.Username,
-      Password: req.body.Password,
+      Password: hashedPassword,
       Email: req.body.Email,
       Birthday: req.body.Birthday
     }
