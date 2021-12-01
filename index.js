@@ -131,7 +131,14 @@ app.patch('/users/:id/favorites/:movieId', passport.authenticate('jwt', { sessio
   });
 });
 
-app.put('/users/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.put('/users/:id',
+[
+  check('Username', 'Username is required').isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+], 
+passport.authenticate('jwt', { session: false }), (req, res) => {
   let id = req.params.id;
   let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findByIdAndUpdate( id , { $set:
