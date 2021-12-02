@@ -140,6 +140,7 @@ passport.authenticate('jwt', { session: false }),
   check('Email', 'Email does not appear to be valid').isEmail()
 ],  (req, res) => {
   let id = req.params.id;
+  console.log(req.body.Username);
   let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findByIdAndUpdate( id , { $set:
     {
